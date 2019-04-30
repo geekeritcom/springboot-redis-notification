@@ -52,6 +52,4 @@ public class RedisController {
         // 操作标识
         return "success";
     }
-
-
 }

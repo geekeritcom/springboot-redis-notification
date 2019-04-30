@@ -66,15 +66,17 @@ public class SpringbootRedisNotificationApplication {
         // 定义监听渠道，名称为topic1
         Topic topicTest = new ChannelTopic("topic1");
         // 针对键过期事件定义监听渠道
-        Topic topicEvent = new ChannelTopic("__keyevent@0__:expired");
+        Topic topicEventOfExpire = new ChannelTopic("__keyevent@0__:expired");
+        Topic topicEventOfSet = new ChannelTopic("__keyevent@0__:set");
         // 针对具体的键定义监听渠道
         Topic topicSpace = new ChannelTopic("__keyspace@0__:key1");
         // 针对正则匹配的键定义监听渠道
-        Topic topicSpaceOfPattern = new PatternTopic("__keyspace@0__:key*");
+        Topic topicSpaceOfPattern = new PatternTopic("__keyevent@0__:notify*");
 
         Collection<Topic> topicCollection = new ArrayList<>();
         topicCollection.add(topicTest);
-        topicCollection.add(topicEvent);
+        topicCollection.add(topicEventOfExpire);
+        topicCollection.add(topicEventOfSet);
         topicCollection.add(topicSpace);
         topicCollection.add(topicSpaceOfPattern);
 

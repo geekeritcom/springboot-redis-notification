@@ -1,5 +1,7 @@
 package com.geekerit.springbootredisnotification.listener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisMessageListener implements MessageListener {
 
-    private static final String PREFIX = "expire";
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedisMessageListener.class);
+
+    private static final String PREFIX = "notify";
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
@@ -22,7 +26,7 @@ public class RedisMessageListener implements MessageListener {
         String topic = new String(pattern);
         System.out.println(body);
         System.out.println(topic);
-        consume(body);
+        //consume(body);
     }
 
     /**
@@ -34,6 +38,7 @@ public class RedisMessageListener implements MessageListener {
         String prefix = split[0];
         String userId = split[1];
         if (PREFIX.equals(prefix)){
+            LOGGER.info("获取键为{}",expireKey);
             System.out.println("用户ID为" + userId + "的用户订购期已到，提醒用户确认收货地址");
         }
     }
