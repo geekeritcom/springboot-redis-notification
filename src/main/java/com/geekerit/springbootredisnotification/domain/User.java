@@ -3,7 +3,7 @@ package com.geekerit.springbootredisnotification.domain;
 import lombok.Data;
 
 /**
- * @author Aaryn [wr@fordearme.com]
+ * @author Aaryn
  * @version 1.0
  * @date 2019/02/26
  */

@@ -7,7 +7,7 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Aaryn [wr@fordearme.com]
+ * @author Aaryn
  * @version 1.0
  * @date 2019/02/26
  */
@@ -31,14 +31,15 @@ public class RedisMessageListener implements MessageListener {
 
     /**
      * 获取过期事件后进行处理
+     *
      * @param expireKey 过期键
      */
-    private void consume(String expireKey){
+    private void consume(String expireKey) {
         String[] split = expireKey.split(":");
         String prefix = split[0];
         String userId = split[1];
-        if (PREFIX.equals(prefix)){
-            LOGGER.info("获取键为{}",expireKey);
+        if (PREFIX.equals(prefix)) {
+            LOGGER.info("获取键为{}", expireKey);
             System.out.println("用户ID为" + userId + "的用户订购期已到，提醒用户确认收货地址");
         }
     }

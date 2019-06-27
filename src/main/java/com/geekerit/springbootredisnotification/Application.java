@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @SpringBootApplication
-public class SpringbootRedisNotificationApplication {
+public class Application {
 
     private RedisTemplate<Object,Object> redisTemplate = null;
     private RedisConnectionFactory connectionFactory = null;
     private MessageListener redisMsgListener = null;
 
     @Autowired
-    public SpringbootRedisNotificationApplication(RedisTemplate<Object, Object> redisTemplate, RedisConnectionFactory connectionFactory, MessageListener redisMsgListener) {
+    public Application(RedisTemplate<Object, Object> redisTemplate, RedisConnectionFactory connectionFactory, MessageListener redisMsgListener) {
         this.redisTemplate = redisTemplate;
         this.connectionFactory = connectionFactory;
         this.redisMsgListener = redisMsgListener;
@@ -100,7 +100,7 @@ public class SpringbootRedisNotificationApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringbootRedisNotificationApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
 }
