@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class RedisController {
 
-    private RedisTemplate redisTemplate = null;
+    private RedisTemplate redisTemplate;
 
-    private StringRedisTemplate stringRedisTemplate = null;
+    private StringRedisTemplate stringRedisTemplate;
 
     private static final String PREFIX = "expire";
 
