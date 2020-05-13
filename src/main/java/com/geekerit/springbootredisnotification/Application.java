@@ -12,6 +12,7 @@ import org.springframework.data.redis.listener.PatternTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.Topic;
 import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 import javax.annotation.PostConstruct;
@@ -19,14 +20,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @SpringBootApplication
+@EnableScheduling
 public class Application {
 
-    private RedisTemplate<Object,Object> redisTemplate = null;
+    private RedisTemplate<String,String> redisTemplate = null;
     private RedisConnectionFactory connectionFactory = null;
     private MessageListener redisMsgListener = null;
 
     @Autowired
-    public Application(RedisTemplate<Object, Object> redisTemplate, RedisConnectionFactory connectionFactory, MessageListener redisMsgListener) {
+    public Application(RedisTemplate<String, String> redisTemplate, RedisConnectionFactory connectionFactory, MessageListener redisMsgListener) {
         this.redisTemplate = redisTemplate;
         this.connectionFactory = connectionFactory;
         this.redisMsgListener = redisMsgListener;

@@ -1,11 +1,15 @@
 package com.geekerit.springbootredisnotification.controller;
 
 import com.geekerit.springbootredisnotification.domain.User;
+import com.geekerit.springbootredisnotification.domain.UserMessageQueue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.DelayQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -16,15 +20,16 @@ import java.util.concurrent.TimeUnit;
 @RestController
 public class RedisController {
 
-    private RedisTemplate redisTemplate;
 
     private StringRedisTemplate stringRedisTemplate;
 
     private static final String PREFIX = "expire";
 
+    @Resource
+    private UserMessageQueue userMessageQueue;
+
     @Autowired
-    public RedisController(RedisTemplate redisTemplate, StringRedisTemplate stringRedisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public RedisController(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
@@ -52,4 +57,20 @@ public class RedisController {
         // 操作标识
         return "success";
     }
+
+    /**
+     * 订阅服务
+     *
+     * @param user 用户信息
+     * @return 成功标识
+     */
+    @RequestMapping(path = "/service/queue", method = RequestMethod.POST)
+    public boolean insertByQueue(@RequestBody User user) {
+        // 非空判断
+        if (null == user) {
+            return false;
+        }
+        return userMessageQueue.add(user);
+    }
+
 }
